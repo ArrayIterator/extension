@@ -11,7 +11,7 @@ Easy extension loader
 }
 ```
 
-## REQUIREMENTS
+## Requirements
 
 ```yaml
 php : >= 7.0
@@ -37,9 +37,10 @@ $loader->start();
 
 /**
  * Get available extension
- * @var array $availableExtensions
+ * @var string[] $availableExtensions
  */
 $availableExtensions = $loader->getAllAvailableExtensions();
+
 ```
 
 ## LICENSE

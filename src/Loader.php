@@ -32,54 +32,90 @@ use FilesystemIterator;
 /**
  * Class Loader
  * @package ArrayIterator\Extension
+ *
+ * <b>Extension Loader</b> for main extension object core.
+ *
+ * @example <code>
+ * $loader = new Loader('/path/to/directory/extensions');
+ * $loader->start();
+ *
+ * </code>
  */
 class Loader
 {
     /**
+     * Extension directory to check.
+     *
      * @var string
      */
     protected $extensionsDirectory;
 
     /**
+     * Extension Parser.
+     *
      * @var ParserInterface
      */
     protected $parser;
 
     /**
-     * @var \SplFixedArray|ExtensionInfo[]
+     * Stored data about extension
+     * Object is \SplFixedArray and value as <b>ExtensionInfo</b>
+     * if Extension has not been called, and contain as <b>ExtensionInterface</b>
+     * if extension loaded.
+     *
+     * @var \SplFixedArray|ExtensionInfo[]|ExtensionInterface[]
      */
     protected $stack;
 
     /**
+     * Determine if on strict mode.
+     *
      * @var bool
      */
     protected $strictMode = false;
 
     /**
+     * List of original identifiers.
+     *
      * @var string[]
      */
     protected $keysNormal = null;
 
     /**
+     * List of lower case identifier. Values as offset stack.
+     *
      * @var int[]
      */
     protected $keysLower = null;
 
     /**
-     * @var array
+     * List of loaded extensions. NULL if has not been parsed otherwise empty array
+     * and string original identifier path extension base name and key as lowercase identifier.
+     *
+     * @var string[]|null
      */
     protected $loaded = null;
 
     /**
-     * @var array
+     * List of class name duplication extension detect by parser.
+     * Key name as original string identifier.
+     *
+     * @var array|array[]|string[][]
      */
     protected $duplications = [];
 
     /**
      * Loader constructor.
-     * @param string $extensionsDirectory
-     * @param bool $strictMode
-     * @param ParserInterface|null $parser
+     * @param string $extensionsDirectory <p>
+     * Extensions directory to crawl.
+     * </p>
+     * @param bool $strictMode <p>
+     * Determine about use <b>Strict Mode</b> or not.
+     * </p>
+     * @param ParserInterface|null $parser <p>
+     * Object parser to use as extension directory parser & crawler,
+     * if <b>NULL</b> @uses Parser as default parser.
+     * </p>
      */
     public function __construct(
         string $extensionsDirectory,
@@ -99,19 +135,12 @@ class Loader
         $this->stack = null;
         $this->strictMode = $strictMode;
         $this->parser = $parser ?: new Parser();
-        $this->extensionsDirectory = $spl->getRealPath();
+        $this->extensionsDirectory = (new \SplFileInfo($extensionsDirectory))->getRealPath();
     }
 
     /**
-     * @param string $directory
-     * @return string
-     */
-    protected function prepareDirectory(string $directory) : string
-    {
-        return (new \SplFileInfo($directory))->getRealPath();
-    }
-
-    /**
+     * Get parser object instance.
+     *
      * @return ParserInterface
      */
     public function getParser() : ParserInterface
@@ -120,9 +149,9 @@ class Loader
     }
 
     /**
-     * Get extensions directory
+     * Get extensions directory.
      *
-     * @return string
+     * @return string realpath extensions directory.
      */
     public function getExtensionsDirectory() : string
     {
@@ -130,7 +159,9 @@ class Loader
     }
 
     /**
-     * @return bool
+     * Get Strict Mode information.
+     *
+     * @return bool is on Strict Mode or not.
      */
     public function isStrictMode() : bool
     {
@@ -138,13 +169,19 @@ class Loader
     }
 
     /**
+     * Start parsing extensions from given extensions directory.
+     *
      * @return Loader
      */
     public function start() : Loader
     {
+        // if stack is not empty, this is mean that
+        // has been processed.
         if ($this->stack) {
             return $this;
         }
+
+        // set default properties data
         $this->loaded = [];
         $this->stack = [];
         $this->keysLower = [];
@@ -194,22 +231,30 @@ class Loader
     }
 
     /**
-     * Verify if Extension exist
+     * Verify if Extension is exist.
      *
-     * @param string $selector
-     * @return bool
+     * @param string $selector <p>
+     * Case insensitive selector, this use base name of extension directory.
+     * </p>
+     * @return bool TRUE if exist otherwise FALSE
      */
     public function exist(string $selector) : bool
     {
-        !$this->stack && $this->start();
+        // if has not been parsed returning false
+        if (!$this->stack) {
+            return false;
+        }
+
         return isset($this->keysLower[strtolower($selector)]);
     }
 
     /**
-     * Verify if extension loaded
+     * Verify if extension loaded.
      *
-     * @param string $selector
-     * @return bool
+     * @param string $selector <p>
+     * Case insensitive selector, this use base name of extension directory.
+     * </p>
+     * @return bool TRUE if loaded otherwise FALSE.
      */
     public function isLoaded(string $selector) : bool
     {
@@ -217,14 +262,14 @@ class Loader
         if (!$this->stack) {
             return false;
         }
-        $selector = strtolower($selector);
-        return isset($this->loaded[$selector]);
+
+        return isset($this->loaded[strtolower($selector)]);
     }
 
     /**
-     * Get available extensions selector
+     * Get available extensions selector.
      *
-     * @return string[]
+     * @return string[] list of selector / extensions base name.
      */
     public function getAllAvailableExtensions() : array
     {
@@ -233,9 +278,9 @@ class Loader
 
     /**
      * Get list of duplicate classes while on parsing process
-     * key name as base of directory
+     * key name as base of directory.
      *
-     * @return array|string[][]
+     * @return array|string[][] List of duplicate class name. Key name as original string identifier.
      */
     public function getDuplications() : array
     {
@@ -243,13 +288,19 @@ class Loader
     }
 
     /**
-     * Load extension
+     * Load the extension by selector.
      *
-     * @param string $selector
-     * @return ExtensionInfo|mixed
+     * @param string $selector <p>Input string selector base name.</p>
+     * @return ExtensionInterface instance of extension.
+     * @throws ExtensionNotFoundException if extension does not exists.
+     * @see Loader::instantiateExtension()
      */
     public function load(string $selector)
     {
+        // if stack is empty, start the parsing process.
+        if (!$this->stack) {
+            $this->start();
+        }
         if (!$this->exist($selector)) {
             throw new ExtensionNotFoundException($selector);
         }
@@ -269,11 +320,15 @@ class Loader
     }
 
     /**
-     * Instantiate extension
+     * Instantiate extension.
      *
-     * @param string $extensionClassName
-     * @param ExtensionInfo $info
-     * @return ExtensionInterface
+     * @param string $extensionClassName <p>
+     * Extension class name.
+     * </p>
+     * @param ExtensionInfo $info <p>
+     * ExtensionInfo as default object info representation.
+     * </p>
+     * @return ExtensionInterface instance of object.
      */
     protected function instantiateExtension(
         string $extensionClassName,
@@ -283,9 +338,9 @@ class Loader
     }
 
     /**
-     * Magic method __sleep() when object @uses serialize()
+     * Magic Method __sleep keep the data when object being serialize.
      *
-     * @return array
+     * @return array represent as object properties need to be keep.
      */
     public function __sleep() : array
     {
@@ -298,11 +353,14 @@ class Loader
     }
 
     /**
-     * * Magic method __sleep() when object @uses unserialize()
+     * Magic Method __wakeup() process when serialized object being unserialize.
+     *
+     * @return void
      */
     public function __wakeup()
     {
-        if (is_array($this->loaded)) {
+        // check if stack if empty and extension as loaded
+        if (!$this->stack && is_array($this->loaded)) {
             $this->start();
             foreach ($this->loaded as $key => $bool) {
                 $this->load($key);

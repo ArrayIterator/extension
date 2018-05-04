@@ -36,39 +36,73 @@ class Utility
     /**
      * Normalize Directory Separator
      *
-     * @param string $sep
-     * @return string
+     * @param string $path <p>Path to normalize</p>
+     * @return string fixed path after path normalized
      */
-    public static function normalizeDirectorySeparator(string $sep) : string
+    public static function normalizeDirectorySeparator(string $path) : string
     {
         return preg_replace(
             '~(\\\|\/)+~',
             DIRECTORY_SEPARATOR,
-            $sep
+            $path
         );
     }
 
     /**
-     * Get class short name
+     * Get class short name or last name without name space
      *
-     * @param string $className
-     * @return string
+     * @param string|object $input <p>input object or class name to be parse.</p>
+     * @return string shortname of class
+     * @throws \InvalidArgumentException <p>if input is not valid.</p>
      */
-    public static function getClassShortName(string $className) : string
+    public static function getClassShortName($input) : string
     {
-        return preg_replace('~^(?:.+\\\)?([^\\\]+)$~', '$1', $className);
+        // if input is an object convert it into class string
+        if (is_object($input)) {
+            $input = get_class($input);
+        }
+
+        if (!is_string($input)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'Argument 1 must be as a string or object %s given',
+                    gettype($input)
+                )
+            );
+        }
+
+        return preg_replace('~^(?:.+\\\)?([^\\\]+)$~', '$1', $input);
     }
 
     /**
-     * Parse Class Name
+     * Parse Class Name & object name space from given parameter
      *
-     * @param string $name
-     * @param mixed $match reference
-     * @return bool|string return string if valid className
+     * @param string|object $input <p>input object or class name to be parse</p>
+     * @param mixed $arr [optional] <p>
+     * If the second parameter arr is present,
+     * variables are stored in this variable as array elements instead.
+     * </p>
+     *
+     * @return bool|string full class name if valid class name, otherwise boolean false if invalid.
+     * @throws \InvalidArgumentException <p>if input is not valid.</p>
      */
-    public static function parseClassName(string $name, &$match = null)
+    public static function parseClassName($input, &$arr = null)
     {
-        $match = [];
+        // if input is an object convert it into class string
+        if (is_object($input)) {
+            $input = get_class($input);
+        }
+
+        if (!is_string($input)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'Argument 1 must be as a string or object %s given',
+                    gettype($input)
+                )
+            );
+        }
+
+        $arr = [];
         preg_match(
             '~^
                 \\\?(?P<name>
@@ -82,11 +116,11 @@ class Utility
                     (?P<shortname>[a-zA-Z\_][a-zA-Z\_0-9]{0,})
                 )$
                 ~x',
-            $name,
-            $match
+            $input,
+            $arr
         );
 
-        $match = array_filter($match, 'is_string', ARRAY_FILTER_USE_KEY);
-        return empty($match) ? false : $match['name'];
+        $arr = array_filter($arr, 'is_string', ARRAY_FILTER_USE_KEY);
+        return empty($arr) ? false : $arr['name'];
     }
 }

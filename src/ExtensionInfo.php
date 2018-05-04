@@ -30,43 +30,62 @@ namespace ArrayIterator\Extension;
 /**
  * Class ExtensionInfo
  * @package ArrayIterator\Extension
+ *
+ * <b>ExtensionInfo</b> as reference of default information for extension
+ * before extension loaded.
  */
 final class ExtensionInfo
 {
     /**
+     * Class name property.
+     *
      * @var string
      */
     protected $className;
 
     /**
+     * Real path of class file placed.
+     *
      * @var string
      */
     protected $classPath;
 
     /**
+     * Extension name.
+     *
      * @var string
      */
     protected $name;
 
     /**
+     * Extension description.
+     *
      * @var string
      */
     protected $description;
 
     /**
+     * Extension version string.
+     *
      * @var string
      */
     protected $version;
 
     /**
+     * Strict mode.
+     *
      * @var bool
      */
     protected $strictMode;
 
     /**
      * ExtensionInfo constructor.
-     * @param \ReflectionClass $reflection
-     * @param bool $strictMode
+     * @param \ReflectionClass $reflection <p>
+     * <b>ReflectionClass</b> for reference about object class instance.
+     * </p>
+     * @param bool $strictMode [optional] <p>
+     * Information about use <b>Strict Mode</b> or not.
+     * </p>
      */
     public function __construct(\ReflectionClass $reflection, bool $strictMode = false)
     {
@@ -75,16 +94,21 @@ final class ExtensionInfo
     }
 
     /**
-     * Parse Info for Reflection
+     * Parse Info for Reflection to fill the default properties information.
      *
-     * @param \ReflectionClass $reflection
+     * @param \ReflectionClass $reflection <p>
+     * <b>ReflectionClass</b> for reference about object class instance.
+     * </p>
+     * @return void
+     * @throws \InvalidArgumentException if object <b>ReflectionClass</b>
+     * is not a valid object contains instanceof @uses ExtensionInterface.
      */
     protected function parseForInfo(\ReflectionClass $reflection)
     {
         if (!$reflection->isSubclassOf(ExtensionInterface::class)) {
             throw new \InvalidArgumentException(
                 sprintf(
-                    'ReflectionClass must be object contain of sub class %s',
+                    'ReflectionClass must be object contain of sub class %s.',
                     ExtensionInterface::class
                 )
             );
@@ -93,7 +117,7 @@ final class ExtensionInfo
         if (! $reflection->isInstantiable()) {
             throw new \InvalidArgumentException(
                 sprintf(
-                    'ReflectionClass must be as an instantiable object of %s',
+                    'ReflectionClass must be as an instantiable object of %s.',
                     ExtensionInterface::class
                 )
             );
@@ -101,7 +125,7 @@ final class ExtensionInfo
 
         if ($reflection->isAnonymous()) {
             throw new \InvalidArgumentException(
-                'ReflectionClass can not be an anonymous object'
+                'ReflectionClass can not be an anonymous object.'
             );
         }
 
@@ -140,9 +164,9 @@ final class ExtensionInfo
     }
 
     /**
-     * Check if on Strict Mode
+     * Check if on Strict Mode.
      *
-     * @return bool
+     * @return bool TRUE if in Strict Mode.
      */
     public function isStrictMode() : bool
     {
@@ -150,7 +174,7 @@ final class ExtensionInfo
     }
 
     /**
-     * Check if provide valid reflection
+     * Check if provide valid reflection.
      *
      * @return bool
      */
@@ -160,49 +184,49 @@ final class ExtensionInfo
     }
 
     /**
-     * Get default description
+     * Get default description.
      *
-     * @return string
+     * @return string extension description.
      */
-    public function getDescription()
+    public function getDescription() : string
     {
         return $this->description;
     }
 
     /**
-     * Get default version
+     * Get default version.
      *
-     * @return string
+     * @return string version string.
      */
-    public function getVersion()
+    public function getVersion() : string
     {
         return $this->version;
     }
 
     /**
-     * Get default version
+     * Get default version.
      *
-     * @return string
+     * @return string extension name.
      */
-    public function getName()
+    public function getName() : string
     {
-        return $this->className;
+        return $this->name;
     }
 
     /**
-     * Get class file path
+     * Get class class file path.
      *
-     * @return string
+     * @return string full class path.
      */
-    public function getClassPath()
+    public function getClassPath() : string
     {
         return $this->classPath;
     }
 
     /**
-     * Get class name
+     * Get class name.
      *
-     * @return string
+     * @return string class name.
      */
     public function getClassName() : string
     {
@@ -210,9 +234,9 @@ final class ExtensionInfo
     }
 
     /**
-     * Magic Method Sleep
+     * Magic Method __sleep keep the data when object being serialize.
      *
-     * @return array
+     * @return array represent as object properties need to be keep.
      */
     public function __sleep() : array
     {
@@ -223,11 +247,13 @@ final class ExtensionInfo
     }
 
     /**
-     * Magic Method Wake Up
+     * Magic Method __wakeup() process when serialized object being unserialize.
+     *
+     * @return void
      */
     public function __wakeup()
     {
-        if ($this->className) {
+        if (!$this->name) {
             try {
                 $this->parseForInfo(new \ReflectionClass($this->className));
             } catch (\Exception $e) {

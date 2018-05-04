@@ -34,18 +34,22 @@ namespace ArrayIterator\Extension;
 class ExtensionNotFoundException extends \RuntimeException
 {
     /**
+     * Extension name
+     *
      * @var string
      */
     protected $extensionName;
 
     /**
      * ExtensionNotFoundException constructor.
-     * @param string $extensionName
+     * @param string $extensionName <p>
+     * Extension Name information selector.
+     * </p>
      */
     public function __construct(string $extensionName)
     {
         $message = sprintf(
-            'Extension %s has not exists',
+            'Extension for %s has not exist.',
             $extensionName
         );
 
@@ -54,7 +58,9 @@ class ExtensionNotFoundException extends \RuntimeException
     }
 
     /**
-     * @return string
+     * Get extension name set from
+     *
+     * @return string the extension name set from constructor
      */
     public function getExtensionName() : string
     {

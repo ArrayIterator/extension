@@ -30,33 +30,37 @@ namespace ArrayIterator\Extension;
 /**
  * Interface ExtensionInterface
  * @package ArrayIterator\Extension
+ *
+ * <b>Extension Interface</b> to represent that extension is valid subclass.
  */
 interface ExtensionInterface
 {
     /**
      * ExtensionInterface constructor.
-     * @param ExtensionInfo $info
+     * @param ExtensionInfo $info <p>
+     * ExtensionInfo as default object info representation.
+     * </p>
      */
     public function __construct(ExtensionInfo $info);
 
     /**
      * Get Extension Name
      *
-     * @return string
+     * @return string Extension name
      */
     public function getName() : string;
 
     /**
      * Get Extension Version String
      *
-     * @return string
+     * @return string Extension version string
      */
     public function getVersionString() : string;
 
     /**
      * Get Extension Description
      *
-     * @return string
+     * @return string Extension description
      */
     public function getDescription() : string;
 }

@@ -34,13 +34,19 @@ namespace ArrayIterator\Extension;
 interface ParserInterface extends \Serializable
 {
     /**
-     * Parse Extension
+     * Parse The Extension path.
      *
-     * @param string $directory
-     * @param bool $strict
-     * @param array $existingClass list of existing class
-     * @param array $duplication array for injection reference duplications
-     * @return ExtensionInfo|null returning null if invalid
+     * @param string $directory <p>
+     * Extension directory to be crawl.
+     * </p>
+     * @param bool $strict <p>
+     * Determine if on <b>Strict Mode</b> or not
+     * </p>
+     * @param array $existingClass <p>List of existing class.</p>
+     * @param array $duplication <p>
+     * array for injection reference duplications.
+     * </p>
+     * @return ExtensionInfo|null returning ExtensionInfo or NULL if invalid.
      */
     public function parse(
         string $directory,

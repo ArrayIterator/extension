@@ -30,6 +30,8 @@ namespace ArrayIterator\Extension;
 /**
  * Class Parser
  * @package ArrayIterator\Extension
+ *
+ * <b>Extension Parser</b> to parse and detect path of extension directory.
  */
 class Parser implements ParserInterface
 {
@@ -56,13 +58,19 @@ class Parser implements ParserInterface
     }
 
     /**
-     * Scan directory extensions placed
+     * Scan directory extensions placed.
      *
-     * @param string $directory directory extensions placed
-     * @param bool $strict      true if use strict file name as class name
-     * @param array $existingClass
-     * @param array $duplication
-     * @return null|\ReflectionClass returning null if invalid
+     * @param string $directory <p>
+     * Extension directory to be crawl.
+     * </p>
+     * @param bool $strict      <p>
+     * Determine if on <b>Strict Mode</b> or not
+     * </p>
+     * @param array $existingClass <p>List of existing class.</p>
+     * @param array $duplication <p>
+     * array for injection reference duplications.
+     * </p>
+     * @return null|\ReflectionClass returning \ReflectionClass or NULL if invalid.
      */
     protected function scanDirectory(
         string $directory,
@@ -135,10 +143,12 @@ class Parser implements ParserInterface
     }
 
     /**
-     * Doing process parse file
+     * Doing process parse of extension file.
      *
-     * @param string $target
-     * @return null|\ReflectionClass
+     * @param string $target <p>
+     * Target file to be parse.
+     * </p>
+     * @return null|\ReflectionClass returning \ReflectionClass or NULL if invalid.
      */
     protected function parseFile(string $target)
     {
@@ -239,7 +249,9 @@ class Parser implements ParserInterface
     }
 
     /**
-     * @return string
+     * Implementation of interface \Serializable, when object serialize.
+     *
+     * @return string serialized data.
      */
     public function serialize() : string
     {
@@ -247,7 +259,13 @@ class Parser implements ParserInterface
     }
 
     /**
-     * @param string $serialized
+     * Implementation of interface \Serializable, when object serialized unserialize.
+     *
+     * @param string $serialized <p>
+     * Serialized data.
+     * </p>
+     *
+     * @return void
      */
     public function unserialize($serialized)
     {
