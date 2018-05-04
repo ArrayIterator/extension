@@ -1,5 +1,6 @@
 {
   "name": "arrayiterator/extension",
+  "description": "Easy extension / module loader",
   "license": "MIT",
   "require": {
     "php" : "^7.0",
