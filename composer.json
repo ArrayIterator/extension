@@ -1,0 +1,22 @@
+{
+  "name": "arrayiterator/extension",
+  "license": "MIT",
+  "require": {
+    "php" : "^7.0",
+    "ext-spl": "*"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "3.*"
+  },
+  "autoload" : {
+    "psr-4" : {
+      "ArrayIterator\\Extension\\": "src/"
+    },
+    "classmap": [
+      "src/"
+    ],
+    "files": [
+      "bootstrap.php"
+    ]
+  }
+}
