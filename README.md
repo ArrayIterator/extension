@@ -11,6 +11,12 @@ Easy extension loader
 }
 ```
 
+## REQUIREMENTS
+
+```yaml
+php : >= 7.0
+```
+
 ## Example
 
 ```php
