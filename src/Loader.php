@@ -73,7 +73,7 @@ class Loader
     /**
      * @var array
      */
-    protected $duplication = [];
+    protected $duplications = [];
 
     /**
      * Loader constructor.
@@ -175,7 +175,7 @@ class Loader
                         . $fileName,
                         $this->strictMode,
                         $existingClass,
-                        $this->duplication
+                        $this->duplications
                     );
                 if ($parsed) {
                     array_push($existingClass, $parsed->getClassName());
@@ -229,6 +229,17 @@ class Loader
     public function getAllAvailableExtensions() : array
     {
         return $this->start()->keysNormal;
+    }
+
+    /**
+     * Get list of duplicate classes while on parsing process
+     * key name as base of directory
+     *
+     * @return array|string[][]
+     */
+    public function getDuplications() : array
+    {
+        return $this->duplications;
     }
 
     /**
