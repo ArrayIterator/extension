@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+
+        <link rel="stylesheet" href="resources/bootstrap.min.css">
+        <link rel="stylesheet" href="resources/style.css">
+
+        <title>
+            Class ArrayIterator\Extension\Parser | Extension Documentation
+        </title>
+    </head>
+
+    <body>
+<div id="navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <nav class="navbar">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="index.html">
+                                Extension Documentation
+                            </a>
+                        </li>
+
+                            <li>
+                                <a href="classes.html">Classes</a>
+                            </li>
+
+                            <li>
+                                <a href="interfaces.html">Interfaces</a>
+                            </li>
+
+
+
+                            <li>
+                                <a href="exceptions.html">Exceptions</a>
+                            </li>
+
+                    </ul>
+
+                    <form id="search" class="pull-right">
+                        <input type="text" name="q" class="form-control text" placeholder="Search class, function or namespace" autofocus>
+                    </form>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+            <div id="breadcrumbs">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+
+
+<div class="pull-left type">
+    <span class="label label-success">Class</span>
+</div>
+
+<ol class="breadcrumb pull-left">
+        <li>
+            <a href="namespace-ArrayIterator.html">ArrayIterator</a>
+        </li>
+            <li class="backslash">\</li>
+        <li>
+            <a href="namespace-ArrayIterator.Extension.html">Extension</a>
+        </li>
+
+        <li class="backslash">\</li>
+        <li class="active">Parser</li>
+</ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+    <h1>Parser</h1>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                Class Parser
+            </div>
+        </div>
+
+        <dl class="tree">
+            <dd>
+
+                    implements
+                        <a href="interface-ArrayIterator.Extension.ParserInterface.html">
+                            ArrayIterator\Extension\ParserInterface
+                        </a>, 
+                        <a href="interface-Serializable.html">
+                            Serializable
+                        </a>
+
+            </dd>
+        </dl>
+
+
+
+    <div class="info">
+        
+
+            <br>
+            <a href="source-class-ArrayIterator.Extension.Parser.html" class="open-source-code">Open source code</a>
+        <br>
+    </div>
+
+        <table class="summary table table-bordered table-responsive table-striped" id="methods">
+            <tr><th colspan="3">Methods Summary</th></tr>
+
+
+
+<tr id="_parse">
+
+    <td class="attributes col-md-1">
+        <code class="keyword">
+                 public 
+                
+                
+        </code>
+    </td>
+
+    <td class="name">
+        <div>
+            <a class="anchor pull-right" href="#_parse">#</a>
+            <code><a href="source-class-ArrayIterator.Extension.Parser.html#41-58">parse</a>( <span> string <span class="property-name">$directory</span> </span>, <span> bool <span class="property-name">$strict</span> = <span class="php-keyword1">false</span></span>, <span> array <span class="property-name">$existingClass</span> = <span class="php-keyword1">array</span> ( )</span>, <span> array <span class="property-name">&amp; $duplication</span> = <span class="php-keyword1">array</span> ( )</span> )</code>
+
+            <div class="description">
+                {@inheritdoc}
+
+
+
+
+
+
+
+
+                        <h2>Implementation of</h2>
+                        <div>
+                            <code>
+                                <a href="interface-ArrayIterator.Extension.ParserInterface.html#_parse">
+                                    ArrayIterator\Extension\ParserInterface::parse()
+                                </a>
+                            </code>
+                        </div>
+            </div>
+        </div>
+    </td>
+</tr>
+
+
+
+<tr id="_scanDirectory">
+
+    <td class="attributes col-md-1">
+        <code class="keyword">
+                 protected 
+                
+                
+        </code>
+    </td>
+
+    <td class="name">
+        <div>
+            <a class="anchor pull-right" href="#_scanDirectory">#</a>
+            <code><a href="source-class-ArrayIterator.Extension.Parser.html#75-143">scanDirectory</a>( <span> string <span class="property-name">$directory</span> </span>, <span> bool <span class="property-name">$strict</span> </span>, <span> array <span class="property-name">$existingClass</span> = <span class="php-keyword1">array</span> ( )</span>, <span> array <span class="property-name">&amp; $duplication</span> = <span class="php-keyword1">array</span> ( )</span> )</code>
+
+            <div class="description">
+                Scan directory extensions placed.
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+    </td>
+</tr>
+
+
+
+<tr id="_parseFile">
+
+    <td class="attributes col-md-1">
+        <code class="keyword">
+                 protected 
+                
+                
+        </code>
+    </td>
+
+    <td class="name">
+        <div>
+            <a class="anchor pull-right" href="#_parseFile">#</a>
+            <code><a href="source-class-ArrayIterator.Extension.Parser.html#153-249">parseFile</a>( <span> string <span class="property-name">$target</span> </span> )</code>
+
+            <div class="description">
+                Doing process parse of extension file.
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+    </td>
+</tr>
+
+
+
+<tr id="_serialize">
+
+    <td class="attributes col-md-1">
+        <code class="keyword">
+                 public 
+                
+                
+        </code>
+    </td>
+
+    <td class="name">
+        <div>
+            <a class="anchor pull-right" href="#_serialize">#</a>
+            <code><a href="source-class-ArrayIterator.Extension.Parser.html#256-259">serialize</a>( )</code>
+
+            <div class="description">
+                Implementation of interface \Serializable, when object serialize.
+
+
+
+
+
+
+
+
+                        <h2>Implementation of</h2>
+                        <div>
+                            <code>
+                                <a href="interface-Serializable.html#_serialize">
+                                    Serializable::serialize()
+                                </a>
+                            </code>
+                        </div>
+            </div>
+        </div>
+    </td>
+</tr>
+
+
+
+<tr id="_unserialize">
+
+    <td class="attributes col-md-1">
+        <code class="keyword">
+                 public 
+                
+                
+        </code>
+    </td>
+
+    <td class="name">
+        <div>
+            <a class="anchor pull-right" href="#_unserialize">#</a>
+            <code><a href="source-class-ArrayIterator.Extension.Parser.html#270-273">unserialize</a>( <span> string <span class="property-name">$serialized</span> </span> )</code>
+
+            <div class="description">
+                Implementation of interface \Serializable, when object serialized unserialize.
+
+
+
+
+
+
+
+
+                        <h2>Implementation of</h2>
+                        <div>
+                            <code>
+                                <a href="interface-Serializable.html#_unserialize">
+                                    Serializable::unserialize()
+                                </a>
+                            </code>
+                        </div>
+            </div>
+        </div>
+    </td>
+</tr>
+        </table>
+
+
+
+
+
+
+
+    <div id="footer">
+        Generated by <a href="https://github.com/apigen/apigen">ApiGen</a>
+    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="resources/jquery-3.2.1.min.js"></script>
+        <script src="resources/jquery-ui-1.12.1.min.js"></script>
+
+        <script src="elementlist.js"></script>
+        <script src="resources/main.js"></script>
+    </body>
+</html>
+
+
