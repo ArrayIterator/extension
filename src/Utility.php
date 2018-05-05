@@ -30,14 +30,16 @@ namespace ArrayIterator\Extension;
 /**
  * Class Utility
  * @package ArrayIterator\Extension
+ *
+ * Object utility and helper.
  */
 class Utility
 {
     /**
      * Normalize Directory Separator
      *
-     * @param string $path <p>Path to normalize</p>
-     * @return string fixed path after path normalized
+     * @param string $path <p>Path to normalize.</p>
+     * @return string fixed path after path normalized.
      */
     public static function normalizeDirectorySeparator(string $path) : string
     {
@@ -52,7 +54,7 @@ class Utility
      * Get class short name or last name without name space
      *
      * @param string|object $input <p>input object or class name to be parse.</p>
-     * @return string shortname of class
+     * @return string shortname of class.
      * @throws \InvalidArgumentException <p>if input is not valid.</p>
      */
     public static function getClassShortName($input) : string
@@ -82,7 +84,6 @@ class Utility
      * If the second parameter arr is present,
      * variables are stored in this variable as array elements instead.
      * </p>
-     *
      * @return bool|string full class name if valid class name, otherwise boolean false if invalid.
      * @throws \InvalidArgumentException <p>if input is not valid.</p>
      */

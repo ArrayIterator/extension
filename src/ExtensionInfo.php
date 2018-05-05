@@ -31,7 +31,7 @@ namespace ArrayIterator\Extension;
  * Class ExtensionInfo
  * @package ArrayIterator\Extension
  *
- * <b>ExtensionInfo</b> as reference of default information for extension
+ * ExtensionInfo as reference of default information for extension
  * before extension loaded.
  */
 final class ExtensionInfo

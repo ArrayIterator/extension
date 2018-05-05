@@ -30,6 +30,8 @@ namespace ArrayIterator\Extension;
 /**
  * Interface ParserInterface
  * @package ArrayIterator\Extension
+ *
+ * Interface for extension parser.
  */
 interface ParserInterface extends \Serializable
 {
@@ -44,7 +46,7 @@ interface ParserInterface extends \Serializable
      * </p>
      * @param array $existingClass <p>List of existing class.</p>
      * @param array $duplication <p>
-     * array for injection reference duplications.
+     * Array for injection reference duplications.
      * </p>
      * @return ExtensionInfo|null returning ExtensionInfo or NULL if invalid.
      */

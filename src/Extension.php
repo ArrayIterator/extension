@@ -31,7 +31,7 @@ namespace ArrayIterator\Extension;
  * Class Extension
  * @package ArrayIterator\Extension
  *
- * <b>Abstract Extension Template</b> for reference of extension.
+ * Abstract Extension Template for reference of extension.
  */
 abstract class Extension implements ExtensionInterface
 {
@@ -65,7 +65,9 @@ abstract class Extension implements ExtensionInterface
 
     /**
      * Extension constructor.
-     * @param ExtensionInfo $info
+     * @param ExtensionInfo $info <p>
+     * ExtensionInfo as default object info representation.
+     * </p>
      */
     public function __construct(ExtensionInfo $info)
     {
@@ -74,7 +76,7 @@ abstract class Extension implements ExtensionInterface
     }
 
     /**
-     * Method when constructor Called
+     * Method when constructor Called.
      *
      * @param ExtensionInfo $info <p>
      * ExtensionInfo object default representation to normalize properties

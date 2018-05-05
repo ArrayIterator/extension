@@ -31,7 +31,7 @@ namespace ArrayIterator\Extension;
  * Class Parser
  * @package ArrayIterator\Extension
  *
- * <b>Extension Parser</b> to parse and detect path of extension directory.
+ * Extension Parser to parse and detect path of extension directory.
  */
 class Parser implements ParserInterface
 {

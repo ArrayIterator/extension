@@ -31,7 +31,7 @@ namespace ArrayIterator\Extension;
  * Interface ExtensionInterface
  * @package ArrayIterator\Extension
  *
- * <b>Extension Interface</b> to represent that extension is valid subclass.
+ * Extension Interface to represent that extension is valid subclass.
  */
 interface ExtensionInterface
 {

@@ -26,12 +26,12 @@
 declare(strict_types=1);
 
 /**
- * Autoload file for case insensitive
+ * PSR-0 Autoloader file for case insensitive
  */
 namespace ArrayIterator {
 
     /**
-     * Fix for lower case files
+     * PSR-0 Fix for lower case files
      */
     spl_autoload_register(function ($className) {
         static $files;

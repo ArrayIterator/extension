@@ -33,13 +33,7 @@ use FilesystemIterator;
  * Class Loader
  * @package ArrayIterator\Extension
  *
- * <b>Extension Loader</b> for main extension object core.
- *
- * @example <code>
- * $loader = new Loader('/path/to/directory/extensions');
- * $loader->start();
- *
- * </code>
+ * Extension Loader for main extension object core.
  */
 class Loader
 {
@@ -59,9 +53,6 @@ class Loader
 
     /**
      * Stored data about extension
-     * Object is \SplFixedArray and value as <b>ExtensionInfo</b>
-     * if Extension has not been called, and contain as <b>ExtensionInterface</b>
-     * if extension loaded.
      *
      * @var \SplFixedArray|ExtensionInfo[]|ExtensionInterface[]
      */
@@ -89,8 +80,7 @@ class Loader
     protected $keysLower = null;
 
     /**
-     * List of loaded extensions. NULL if has not been parsed otherwise empty array
-     * and string original identifier path extension base name and key as lowercase identifier.
+     * List of loaded extensions.
      *
      * @var string[]|null
      */
@@ -109,10 +99,10 @@ class Loader
      * @param string $extensionsDirectory <p>
      * Extensions directory to crawl.
      * </p>
-     * @param bool $strictMode <p>
+     * @param bool $strictMode [optional] <p>
      * Determine about use <b>Strict Mode</b> or not.
      * </p>
-     * @param ParserInterface|null $parser <p>
+     * @param ParserInterface|null $parser [optional] <p>
      * Object parser to use as extension directory parser & crawler,
      * if <b>NULL</b> @uses Parser as default parser.
      * </p>
@@ -171,6 +161,9 @@ class Loader
     /**
      * Start parsing extensions from given extensions directory.
      *
+     * @uses FilesystemIterator <p>
+     * To iterate scan of directory.
+     * </p>
      * @return Loader
      */
     public function start() : Loader
@@ -187,11 +180,11 @@ class Loader
         $this->keysLower = [];
         $this->keysNormal = [];
 
+        $c = 0;
+        $existingClass = [];
         /**
          * @var \SplFileInfo $item
          */
-        $c = 0;
-        $existingClass = [];
         foreach (new FilesystemIterator(
             $this->extensionsDirectory,
             FilesystemIterator::CURRENT_AS_FILEINFO
@@ -231,7 +224,7 @@ class Loader
     }
 
     /**
-     * Verify if Extension is exist.
+     * Verify if extension is exist.
      *
      * @param string $selector <p>
      * Case insensitive selector, this use base name of extension directory.

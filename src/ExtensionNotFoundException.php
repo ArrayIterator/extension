@@ -30,11 +30,13 @@ namespace ArrayIterator\Extension;
 /**
  * Class ExtensionNotFoundException
  * @package ArrayIterator\Extension
+ *
+ * Exception object that determine of extension has not found.
  */
 class ExtensionNotFoundException extends \RuntimeException
 {
     /**
-     * Extension name
+     * Extension name.
      *
      * @var string
      */
