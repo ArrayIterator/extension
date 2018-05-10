@@ -87,10 +87,11 @@ class Parser implements ParserInterface
         $ref       = null;
         $className = Utility::parseClassName($baseName);
         if ($className) {
-            $className = $directory .  DIRECTORY_SEPARATOR . $className . '.php';
-            if (is_file($className) && is_readable($className)) {
-                $ref = $this->parseFile($className);
+            $classPath = $directory .  DIRECTORY_SEPARATOR . $className . '.php';
+            if (is_file($classPath) && is_readable($classPath)) {
+                $ref = $this->parseFile($classPath);
             }
+
             clearstatcache(true, $className);
             // check if in strict mode
             if ($strict && ($ref === null || strtolower($ref->getShortName()) !== strtolower($className))) {
