@@ -92,7 +92,7 @@ class Parser implements ParserInterface
                 $ref = $this->parseFile($classPath);
             }
 
-            clearstatcache(true, $className);
+            clearstatcache(true, $classPath);
             // check if in strict mode
             if ($strict && ($ref === null || strtolower($ref->getShortName()) !== strtolower($className))) {
                 unset($ref);
